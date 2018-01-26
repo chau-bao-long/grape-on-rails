@@ -1,3 +1,5 @@
+require "grape_on_rails/macros"
+
 module GrapeOnRails
   module Validator
     extend ActiveSupport::Concern

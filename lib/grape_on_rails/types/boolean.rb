@@ -1,11 +1,13 @@
 module GrapeOnRails
-  module Types::Boolean
-    def to_b
-      case self
-      when "true"
-        true
-      when "false"
-        false
+  module Types
+    module Boolean
+      def to_b
+        case self
+        when "true"
+          true
+        when "false"
+          false
+        end
       end
     end
   end

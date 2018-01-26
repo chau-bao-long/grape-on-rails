@@ -27,6 +27,10 @@ module GrapeOnRails
         ActiveSupport.on_load(:active_record) do
           extend GrapeOnRails::Models
         end
+        ActiveSupport.on_load(:action_controller) do
+          include GrapeOnRails::API
+          include GrapeOnRails::Authenticator
+        end
         auto_reload_in_development
       end
     end

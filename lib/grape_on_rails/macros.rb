@@ -1,3 +1,5 @@
+require "grape_on_rails/attributes"
+
 module GrapeOnRails
   module Macros
     include GrapeOnRails::Attributes

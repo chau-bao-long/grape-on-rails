@@ -1,6 +1,7 @@
 require "grape_on_rails/version"
 require "active_support/dependencies/autoload"
 require "active_support/core_ext/array/extract_options"
+require 'active_support/core_ext/module/attribute_accessors'
 require "active_support/concern"
 require "grape_on_rails/sources/yaml_source"
 require "grape_on_rails/structural_hash"
@@ -56,7 +57,7 @@ module GrapeOnRails
   end
 
   def hook_rails_layers
-    hook_controller API, Authenticator
+    hook_controller GrapeOnRails::API, GrapeOnRails::Authenticator
     hook_model GrapeOnRails::Models
   end
 
