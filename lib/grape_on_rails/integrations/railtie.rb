@@ -23,7 +23,7 @@ module GrapeOnRails
 
       config.before_configuration{GrapeOnRails.load}
 
-      config.after_initialize do
+      config.before_initialize do
         ActiveSupport.on_load(:active_record) do
           extend GrapeOnRails::Models
         end
