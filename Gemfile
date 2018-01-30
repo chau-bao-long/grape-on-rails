@@ -21,13 +21,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: (@windows_platforms + [:jruby])
 
-group :test do
-  gem 'pry', '>= 0.10'
-  gem 'byebug', '~> 8.2' if RUBY_VERSION < '2.2'
-  gem 'pry-byebug', platform: :ruby
-end
-
 group :development, :test do
+  gem 'byebug', '~> 8.2' if RUBY_VERSION < '2.2'
   gem "pry"
   gem "pry-rails"
   gem "pry-byebug"
