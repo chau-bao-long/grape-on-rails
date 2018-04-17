@@ -1,0 +1,6 @@
+project_type: ruby
+test:
+  rubocop:
+    command: bundle exec rubocop
+
+

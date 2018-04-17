@@ -1,0 +1,14 @@
+pipeline:
+  build:
+    image: topcbl/framgia_glpa
+    commands:
+      - bundle install
+      - framgia-ci run
+
+  docker:
+    image: plugins/docker
+    username: ${REGISTRY_USER}
+    password: ${REGISTRY_PWD}
+    repo: chau-bao-long/annyeongsv
+    tags: latest
+
