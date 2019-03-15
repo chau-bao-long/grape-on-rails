@@ -203,7 +203,7 @@ e.g. `X-Auth-Token: Bearer user-access-token-go-here`
 - *token_configs* specifies token length, expire time, ...
 
 Declare all errors in your API. Error response depend on it and render json response like this:
-```json
+```javascript
 {
   error_code: 6xx,
   message: "your error message."
@@ -214,14 +214,14 @@ For example: when you define a error in grape_on_rails.yml
 wrong_email:
   code: 606
   en: "user email is wrong"
-  
+
 ```
 Should generate APIError::WrongEmail class. From there, anywhere in rails app can easily raise exception
 ```ruby
 raise APIError::WrongEmail
 ```
 The error will be automatically handled by **GrapeOnRails** and response this json
-```json
+```javascript
 {
   error_code: 606,
   message: "user email is wrong"
