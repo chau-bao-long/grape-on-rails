@@ -2,7 +2,7 @@
 
 Nowadays, web development tends to move into Single Page App style, which is based on XHR request and communication through JSON data. Beside it, the rising of Mobile App follows up with API web service which is a MUST for our business.
 
-Rails with nearly 8 years old is not good enough for developing APIs quickly despite the born of Rails API-only mode. Many programmers turn to [Grape](https://github.com/ruby-grape/grape) for a better DSL and more support. 
+Rails with nearly 8 years old is not good enough for developing APIs quickly despite the born of Rails API-only mode. Many programmers turn to [Grape](https://github.com/ruby-grape/grape) for a better DSL and more support.
 However, in order to take advantage of lots of benefits in Rails, we have to found ourselves a way to use Grape along with Rails so far.
 
 I myself have to mount Grape routes into rails routes as well as leave rails controller and replaces by Grape API declaration. So, I decided to combine the power of two huge Framework and make your app server lightly, your code concisely and clearly.
@@ -11,9 +11,9 @@ You guys can consider this gem as an updated version for Rails API mode, I tried
 
 # Why GrapeOnRails?
 
-* Want to get rid of boilerplate code
-* Want to keep using Rails api-only mode without mess with Grape
-* Have an easy life
+- Want to get rid of boilerplate code
+- Want to keep using Rails api-only mode without mess with Grape
+- Have an easy life
 
 Introduce gem GrapeOnRails - which brings Grape DSL to Rails-API and help writing APIs easier than ever.
 
@@ -22,6 +22,7 @@ Introduce gem GrapeOnRails - which brings Grape DSL to Rails-API and help writin
 Below is a simple example showing some of the more common features of GrapeOnRails in the context of recreating parts of the Twitter API.
 
 #### Routes have written as a normal rails app.
+
 ```ruby
 Rails.application.routes.draw do
   namespace :api do
@@ -33,6 +34,7 @@ end
 ```
 
 #### GrapeOnRails makes rails controller great again.
+
 ```ruby
 class Api::V1::StatusesController < ApplicationController
   before_action :authenticate!, except: :index
@@ -73,16 +75,17 @@ class Api::V1::StatusesController < ApplicationController
   end
 end
 ```
+
 - You don't need to write any code. `authenticate!` method is there ready for you to get `current_user`.
 
 - Params are automatically validate and able to use. Now, you guys can use `id`, `status` variable instead of `params[:id]`, `params[:status]`
 
 - You don't need you write `params.require(:id).permit(:id, :status)` as usual, use `declared_params`, it has already filter and take valid params above.
 
-- Instead of writting `render json: {}, ...`, special `r model, ...` method give a  help to make your code shorter.
-
+- Instead of writting `render json: {}, ...`, special `r model, ...` method give a help to make your code shorter.
 
 #### Make Models suitable for API authentication
+
 ```ruby
 class User < ApplicationRecord
   has_one :user_token, dependent: :destroy
@@ -100,15 +103,18 @@ class UserToken < ApplicationRecord
   acts_as :user_token
 end
 ```
+
 Every backend APIs need a main actor like: User, Admin, ... and Token for authentication. **GrapeOnRails** give you that ability without writing any line of code.
 
 Lets `User acts_as :user`. So, you have authentication function on `User`
+
 ```ruby
 # authenticate user by email and password
 User.authenticate! "user's email", "user's password"
 ```
 
 Lets `UserToken acts_as :user_token`. So that, you have following core function
+
 ```ruby
 # generate a new token for user
 UserToken.generate! user
@@ -127,12 +133,13 @@ user_token.expires!
 ```
 
 **Remember:**
+
 - User model must contains following columns: **email, password_digest**
 - UserToken model must contains following columns: **token, refresh_token, expires_at**
 
-
 #### Config the gem to adapt your app
-Let's create grape_on_rails.yml in folder config/ 
+
+Let's create grape_on_rails.yml in folder config/
 
 `$ touch config/grape_on_rails.yml`
 
@@ -153,7 +160,7 @@ token_configs:
 error_code_key: "error_code"
 error_message_key: "message"
 errors:
-  data_operation: 
+  data_operation:
     code: 600
     skip_create_error: true
   unauthorized:
@@ -178,7 +185,7 @@ errors:
     ja: "バリデーションエラー"
     vi: "Xac thuc that bai"
   token_expired:
-    code:  605
+    code: 605
     en: "Expired token"
     ja: "トークンの有効期限が切れています"
     vi: "Phien lam viec het han"
@@ -196,39 +203,46 @@ errors:
     en: "Unexpected exception"
     ja: "予期されないエクセプション"
 ```
-- *access_token_header* and *access_token_value_prefix* is how token look like in http request header.
+
+- _access_token_header_ and _access_token_value_prefix_ is how token look like in http request header.
 
 e.g. `X-Auth-Token: Bearer user-access-token-go-here`
 
-- *token_configs* specifies token length, expire time, ...
+- _token_configs_ specifies token length, expire time, ...
 
 Declare all errors in your API. Error response depend on it and render json response like this:
-```json
+
+```javascript
 {
   error_code: 6xx,
   message: "your error message."
 }
 ```
+
 For example: when you define a error in grape_on_rails.yml
+
 ```yaml
 wrong_email:
   code: 606
   en: "user email is wrong"
-  
 ```
+
 Should generate APIError::WrongEmail class. From there, anywhere in rails app can easily raise exception
+
 ```ruby
 raise APIError::WrongEmail
 ```
+
 The error will be automatically handled by **GrapeOnRails** and response this json
-```json
+
+```javascript
 {
   error_code: 606,
   message: "user email is wrong"
 }
 ```
-Moreover, you can apply multi-language on each of errors. **GrapeOnRails** detect your locale to response right error message
 
+Moreover, you can apply multi-language on each of errors. **GrapeOnRails** detect your locale to response right error message
 
 ## Installation
 
@@ -242,11 +256,9 @@ And then execute:
 
 `$ bundle`
 
-
 Or install it yourself as:
 
 `$ gem install grape_on_rails`
-
 
 ## Development
 
